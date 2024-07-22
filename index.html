@@ -25,7 +25,19 @@ https://templatemo.com/tm-518-sentra
         <link rel="stylesheet" href="css/templatemo-style.css">
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/fontAwesome.css">
+        <link rel="stylesheet" href="css/light-box.css">
+        <link rel="stylesheet" href="css/owl-carousel.css">
+        <link rel="stylesheet" href="css/templatemo-style.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
 
+        <link rel="stylesheet" href="/static/style.css">
+    <script type="module" src="/static/firebaseauth.js"></script>
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
 
@@ -49,16 +61,22 @@ https://templatemo.com/tm-518-sentra
                         <li><a href="#projects">Transform</a></li>
                         <li><a href="#video"> Resonance</a></li>
                         <li><a href="#blog">Tribe</a></li>
-                        <li><a href="#contact"> Connect </a></li>
+                        <li><a href="#contact"> Connect</a></li>
                     </ul>
                 </nav>
             </div>
         </header>
-
-        <div class="sidebar-navigation hidde-sm hidden-xs">
-            <div class="logo">
-                <a href="#">Avar<em>ta</em></a>
+       
+        <div class="sidebar-navigation hidden-sm hidden-xs" style="display: block;">
+            <div class="logo" style="text-align: center; margin: 20px 0;">
+                <img src="/Avartha.io/Backend/img/logo2.jpg" alt="Avarta Logo" style="width: 100px; height: auto; max-width: 100%;" />
             </div>
+        
+        
+
+    <!-- Rest of your code -->
+
+
             <nav>
                 <ul>
                     <li>
@@ -204,7 +222,6 @@ https://templatemo.com/tm-518-sentra
             </style>
         </head>
         <body>
-            
             <section id="featured" class="content-section">
                 <div class="section-heading">
                     <h1>Discover The <em>Avarta Vision</em></h1>
@@ -289,7 +306,7 @@ https://templatemo.com/tm-518-sentra
                                 <h4>From Trash to Treasure</h4>
                                 <span>Transform waste into valuable resources with Avarta's innovative recycling methods.</span>
                             </div>
-                        
+                        </div>
                         <!-- <div class="item">
                             <div class="image">
                                 <img src="img/featured_2.jpg" alt="">
@@ -329,9 +346,9 @@ https://templatemo.com/tm-518-sentra
                                 <p>#9 Suspendisse suscipit nulla sed nisl fermentum, auctor suscipit nunc rhoncus. Proin faucibus metus diam, nec hendrerit purus pharetra in.</p>
                             </div>
                         </div> -->
-                        </div>
+                        
                     </div>
-               
+                </div>
             </section>
 
             <!-- ******************Services************************* -->
@@ -343,7 +360,9 @@ https://templatemo.com/tm-518-sentra
                 <div id="services" class="content-upload" style="display: flex;">
                     <div class="info-container" style="flex: 1;">
                         <div class="section-heading" style="top: 2rem;">
-                            
+                            <input type="file" id="fileInput">
+    <button onclick="uploadImage()">Upload Image</button>
+
                             
                             <h1 style="position: absolute; top: -90px; left: -80px; box-sizing: border-box; color: rgb(35, 35, 35); font-family: 'Open Sans', sans-serif; font-size: 32px; font-weight: 500; line-height: 35.2px; margin: 0; padding: 0; text-align: left;">
                                 Upload <em style="color: rgb(108, 193, 122);">Recyclables</em>
@@ -387,7 +406,7 @@ https://templatemo.com/tm-518-sentra
     top: 50%; /* Center vertically */
     left: 50%; /* Center horizontally */
     transform: translate(-50%, -50%); /* Centering adjustment */
-    background-color: rgba(255, 255, 255, 0.9); /* Slightly more opaque */
+    background-color: rgba(119, 15, 157, 0.9); /* Slightly more opaque */
     padding: 20px; /* Increased padding for a spacious feel */
     border-radius: 8px; /* Softer corners */
     text-align: center;
@@ -495,9 +514,36 @@ document.getElementById('upload-button').addEventListener('click', function(even
         // Prevent the form from submitting
         event.preventDefault();
         // Redirect to the login page
-        window.location.href = 'auth/login.html';
+        window.location.href = 'templates/login.html';
     }
 });
+async function uploadImage() {
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
+    const apiKey = 'your-secret-api-key'; // Ensure to secure this in a real-world scenario
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+        const response = await fetch('http://localhost:8000/upload/', {
+            method: 'POST',
+            headers: {
+                'X-API-KEY': apiKey
+            },
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error('Upload failed');
+        }
+
+        const result = await response.json();
+        console.log(result);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
 
                 </script>
                 
@@ -581,24 +627,24 @@ document.getElementById('upload-button').addEventListener('click', function(even
                     
                     <div class="team-members-container">
                         <div class="header-container">
-                <div class="header-left">
-                    <h4 style="margin: 0; text-align: left; font-size: 32px; line-height: 35.2px; font-family: 'Open Sans', sans-serif; font-weight: 700;">
-                        <span style="color: black;">Our Team</span> 
-                        <span style="color: rgb(108, 193, 122);">Members</span>
-                    </h4>
-                    
-                    <p style="margin: 20px 0 30px 0;">At the heart of Avarta is a passionate and dedicated team, driven by a shared vision of a sustainable and eco-friendly future. Each member brings unique insights and expertise, contributing to the app's success. Comprising talented data scientists, proficient frontend and backend developers, and a dedicated DevOps engineer, we work harmoniously to uphold standards of excellence and drive innovation. Join us in celebrating the incredible minds behind Avarta by watching the video and learning about their contributions.</p>
-                </div>
-                
-                <div class="header-right">
-                    <video controls width="100%">
-                        <source src="video/team-intro.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-            </div>
-            
-            </body>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px;">
+                                <div style="flex: 1; padding-right: 20px;">
+                                    <h4 style="margin: 0; text-align: left; font-size: 32px; line-height: 35.2px; font-family: 'Open Sans', sans-serif; font-weight: 700;">
+                                        <span style="color: black;">Our Team</span> 
+                                        <span style="color: rgb(108, 193, 122);">Members</span>
+                                    </h4>
+                                    <p style="margin: 20px 0 30px 0;">
+                                        At the heart of Avarta is a passionate and dedicated team, driven by a shared vision of a sustainable and eco-friendly future. Each member brings unique insights and expertise, contributing to the app's success. Comprising talented data scientists, proficient frontend and backend developers, and a dedicated DevOps engineer, we work harmoniously to uphold standards of excellence and drive innovation. Join us in celebrating the incredible minds behind Avarta by watching the video and learning about their contributions.
+                                    </p>
+                                </div>
+                                <div style="flex: 1; display: flex; justify-content: flex-end;">
+                                    <video controls style="max-width: 100%; height: auto;">
+                                        <source src="video/team-intro.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
+                        </body>
                 <!-- <div class="section-content">
                     <div class="tabs-content">
                         <div class="wrapper">
@@ -809,49 +855,52 @@ document.getElementById('upload-button').addEventListener('click', function(even
                     -->
                     <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1197183.8373802372!2d-1.9415093691103689!3d6.781986417238027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdb96f349e85efd%3A0xb8d1e0b88af1f0f5!2sKumasi+Central+Market!5e0!3m2!1sen!2sth!4v1532967884907" width="100%" height="400px" frameborder="0" style="border:0" allowfullscreen></iframe> -->
                     <section id="contact" class="content-section">
-                        <div id="Map" style="padding: 0 60px;">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1197183.8373802372!2d-1.9415093691103689!3d6.781986417238027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdb96f349e85efd%3A0xb8d1e0b88af1f0f5!2sKumasi+Central+Market!5e0!3m2!1sen!2sth!4v1532967884907" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        <!-- <div id="Map" style="padding: 0 60px;">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1197183.8373802372!2d-1.9415093691103689!3d6.781986417238027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdb96f349e85efd%3A0xb8d1e0b88af1f0f5!2sKumasi+Central+Market!5e0!3m2!1sen!2sth!4v1532967884907" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> -->
                     
-                </div>
-                <div id="contact-content">
-                    <div class="section-heading">
-                        <h1>Contact<br><em>Sentra</em></h1>
-                        <p>Curabitur hendrerit mauris mollis ipsum vulputate rutrum. 
-                        <br>Phasellus luctus odio eget dui imperdiet.</p>
-                        
-                    </div>
-                    <div class="section-content">
-                        <form id="contact" action="#" method="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <fieldset>
-                                    <input name="name" type="text" class="form-control" id="name" placeholder="Your name..." required="">
-                                  </fieldset>
+                            <section id="contact" class="content-section">
+                                <div id="contact-background"> <!-- New container for background color -->
+                                    <div id="contact-content">
+                                        <div class="section-heading">
+                                            <h1>Contact<br><em>Sentra</em></h1>
+                                            <p>Curabitur hendrerit mauris mollis ipsum vulputate rutrum. 
+                                            <br>Phasellus luctus odio eget dui imperdiet.</p>
+                                        </div>
+                                        <div class="section-content">
+                                            <form id="contact-form" action="#" method="post">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <fieldset>
+                                                            <input name="name" type="text" class="form-control" id="name" placeholder="Your name..." required="">
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <fieldset>
+                                                            <input name="email" type="email" class="form-control" id="email" placeholder="Your email..." required="">
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <fieldset>
+                                                            <input name="subject" type="text" class="form-control" id="subject" placeholder="Subject..." required="">
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <fieldset>
+                                                            <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your message..." required=""></textarea>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <fieldset>
+                                                            <button type="submit" id="form-submit" class="btn">Send Message Now</button>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                  <fieldset>
-                                    <input name="email" type="email" class="form-control" id="email" placeholder="Your email..." required="">
-                                  </fieldset>
-                                </div>
-                                 <div class="col-md-4">
-                                  <fieldset>
-                                    <input name="subject" type="text" class="form-control" id="subject" placeholder="Subject..." required="">
-                                  </fieldset>
-                                </div>
-                                <div class="col-md-12">
-                                  <fieldset>
-                                    <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your message..." required=""></textarea>
-                                  </fieldset>
-                                </div>
-                                <div class="col-md-12">
-                                  <fieldset>
-                                    <button type="submit" id="form-submit" class="btn">Send Message Now</button>
-                                  </fieldset>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                            </section>
+                            
             </section>
             <section class="footer">
                 <p>Copyright &copy; 2024 Company Name 
